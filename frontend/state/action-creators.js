@@ -1,4 +1,17 @@
 // ❗ You don't need to add extra action creators to achieve MVP
+
+const quizGet = 'http://localhost:9000/api/quiz/next'
+/*
+  {
+    quiz_id: '',
+    question: '',
+    answers: [ {answer_id: '', text: ''}, {answer_id: '', text: ''} ]
+  }
+*/
+const quizPost = 'http://localhost:9000/api/quiz/new'
+// same as quizGet but adds { correct: false } or { correct: true } inside of 'answers'
+const quizAnswerPost = 'http://localhost:9000/api/quiz/answer'
+
 export function moveClockwise() { }
 
 export function moveCounterClockwise() { }
