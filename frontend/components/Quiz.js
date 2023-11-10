@@ -32,7 +32,7 @@ function Quiz(props) {
               ))}
             </div>
 
-            <button id="submitAnswerBtn" onClick={() => postAnswer(selectedAnswer)}>
+            <button id="submitAnswerBtn" disabled={props.infoMessage !== 'Submit answer'} onClick={() => postAnswer(selectedAnswer)}>
               Submit answer
             </button>
           </>
@@ -45,7 +45,8 @@ function Quiz(props) {
 const mapStateToProps = state => {
   return {
     quiz: state.quiz,
-  selectedAnswer: state.selectedAnswer,
+    selectedAnswer: state.selectedAnswer,
+    infoMessage: state.infoMessage
 }
 }
 

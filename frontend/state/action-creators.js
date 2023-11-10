@@ -17,7 +17,19 @@ export function moveCounterClockwise() {
 }
 
 export function selectAnswer(answer) {
-  return { type: SET_SELECTED_ANSWER, payload: answer}
+  return (dispatch) => {
+
+    dispatch({
+      type: SET_SELECTED_ANSWER,
+      payload: answer,
+    });
+
+    dispatch({
+      type: SET_INFO_MESSAGE,
+      payload: answer ? 'Submit answer' : 'Please select an answer',
+    });
+
+  };
 }
 
 export function setMessage(message) {
