@@ -12,13 +12,13 @@ import Form from './Form'
 import { legacy_createStore as createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import reducer from '../state/reducer'
+import rootReducer from '../state/reducer'
 
 // REDUX STORE
 let store
 export const resetStore = () => {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-  store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
+  store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 }
 resetStore()
 
