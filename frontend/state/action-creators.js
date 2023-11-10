@@ -71,8 +71,6 @@ export function postAnswer(answerId) {
 
     const state = getState();
 
-    if(state.selectedAnswer){
-      dispatch(selectAnswer(null))
 
       dispatch(setMessage('Submitting answer...'))
 
@@ -81,7 +79,7 @@ export function postAnswer(answerId) {
         answer_id: answerId,
       })
       .then(() => {
-
+        dispatch(selectAnswer(null))
         dispatch(setMessage(''))
         dispatch(fetchQuiz())
       })
@@ -89,9 +87,11 @@ export function postAnswer(answerId) {
         console.error('Error submitting answer:', err)
       })
 
-    }
 
 
+
+    // dispatch({ type: SET_SELECTED_ANSWER, payload: answerId})
+    dispatch(selectAnswer(answerId))
     // On successful POST:
     // - Dispatch an action to reset the selected answer state
     // - Dispatch an action to set the server message to state

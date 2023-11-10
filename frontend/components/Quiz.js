@@ -24,11 +24,12 @@ function Quiz(props) {
             <div id="quizAnswers">
               {quiz.answers.map((answer) => (
                 <div key={answer.id} className={`answer ${selectedAnswer === answer.id ? 'selected' : ''}`}>
-                  {answer.text}
-                  <button onClick={() => postAnswer(answer.id)}>
-                    {selectedAnswer === answer.id ? 'SELECTED' : 'Select'}
-                  </button>
-                </div>
+                {answer.text}
+                <button onClick={() => postAnswer(answer.id)}>
+                  {selectedAnswer === answer.id ? 'SELECTED' : 'Select'}
+                </button>
+              </div>
+
               ))}
             </div>
 
