@@ -21,15 +21,34 @@ export function selectAnswer(answer) {
 
     dispatch({
       type: SET_SELECTED_ANSWER,
-      payload: answer,
+      payload: [answer], // Wrap the answer in an array
     });
 
     dispatch({
       type: SET_INFO_MESSAGE,
-      payload: answer ? 'Submit answer' : 'Please select an answer',
+      payload: answer.length > 0 ? 'Submit answer' : 'Please select an answer',
     });
+    // const state = getState()
+    // const selectedAnswers = state.selectedAnswer.slice();
 
-  };
+    // const index = selectedAnswers.indexOf(answer)
+    // if(index !== -1) {
+    //   selectedAnswers.splice(index, 1)
+    // } else {
+    //   selectedAnswers.push(answer)
+    // }
+
+    // dispatch({
+    //   type: SET_SELECTED_ANSWER,
+    //   payload: selectedAnswers,
+    // });
+
+    // dispatch({
+    //   type: SET_INFO_MESSAGE,
+    //   payload: selectedAnswers.push(answer) ? 'Submit answer' : 'Please select an answer',
+    // });
+
+    };
 }
 
 export function setMessage(message) {
@@ -66,32 +85,44 @@ export function fetchQuiz() {
     // - Dispatch an action to send the obtained quiz to its state
   }
 }
-export function postAnswer(answerId) {
-  return function (dispatch, getState) {
+export function postAnswer({ quiz_id, answer_id }) {
+  return function (dispatch) {
 
-    const state = getState();
+    axios.post('http://localhost:9000/api/quiz/answer', {
+      quiz_id,
+      answer_id,
+    })
+    .then((response) => {
+      dispatch(selectAnswer(null))
+      dispatch(setMessage(response.data.message))
+    })
+    .catch(err => {
+      const errorMessage = err.response ? err.response.data.message : err.message
+      dispatch(setMessage(errorMessage))
+    })
+    .finally(() => {
+      dispatch(fetchQuiz())
+    });
+      // dispatch(setMessage('Submitting answer...'))
 
-
-      dispatch(setMessage('Submitting answer...'))
-
-      axios.post('http://localhost:9000/api/quiz/answer', {
-        quiz_id: state.quiz.id,
-        answer_id: answerId,
-      })
-      .then(() => {
-        dispatch(selectAnswer(null))
-        dispatch(setMessage(''))
-        dispatch(fetchQuiz())
-      })
-      .catch(err => {
-        console.error('Error submitting answer:', err)
-      })
+      // axios.post('http://localhost:9000/api/quiz/answer', {
+      //   quiz_id: state.quiz.id,
+      //   answer_id: answerId,
+      // })
+      // .then(() => {
+      //   dispatch(selectAnswer(null))
+      //   dispatch(setMessage(''))
+      //   dispatch(fetchQuiz())
+      // })
+      // .catch(err => {
+      //   console.error('Error submitting answer:', err)
+      // })
 
 
 
 
     // dispatch({ type: SET_SELECTED_ANSWER, payload: answerId})
-    dispatch(selectAnswer(answerId))
+    // dispatch(selectAnswer(answerId))
     // On successful POST:
     // - Dispatch an action to reset the selected answer state
     // - Dispatch an action to set the server message to state
