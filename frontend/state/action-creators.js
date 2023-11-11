@@ -30,7 +30,7 @@ export function selectAnswer(answer) {
     // });
 
     dispatch({ type: SET_SELECTED_ANSWER, payload: answer })
-    
+
     // const state = getState()
     // const selectedAnswers = state.selectedAnswer.slice();
 
@@ -133,7 +133,7 @@ export function postAnswer({ quiz_id, answer_id }) {
   }
 }
 export function postQuiz() {
-  return function (dispatch) {
+  return function (dispatch, getState) {
 
     const state = getState();
 
@@ -148,7 +148,10 @@ export function postQuiz() {
         dispatch(resetForm())
       })
       .catch(err => {
-        console.error('Error submitting new quiz', err)
+        setMessage(err.message)
+      })
+      .finally(() => {
+        dispatch(fetchQuiz())
       })
     }
     // On successful POST:

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { postAnswer, fetchQuiz, selectAnswer } from '../state/action-creators'
 
 function Quiz(props) {
-  const { quiz, selectedAnswer, postAnswer, fetchQuiz, selectAnswer } = props
+  const { quiz, selectedAnswer, postAnswer, fetchQuiz, selectAnswer } = props;
 
   useEffect(() => {
     // console.log('Quiz', quiz)
@@ -12,10 +12,26 @@ function Quiz(props) {
     if(!quiz){
       fetchQuiz();
     }
-  }, [ quiz, fetchQuiz ])
+  }, [quiz, fetchQuiz])
 
-  const isAnswerSelected = answer_id => {
-    selectedAnswer === answer_id;
+  // const isAnswerSelected = answer_id => {
+  //   selectedAnswer === answer_id;
+  // }
+
+  const answerClassNameOne = id => {
+    return selectedAnswer === id
+      ? 'answer selected'
+      : 'answer'
+  }
+
+  const answerClassNameTwo = id => {
+    return selectedAnswer === id
+      ? 'answer selected'
+      : 'answer'
+  }
+
+  const handleAnswerClick = (id) => {
+    selectAnswer(id)
   }
 
   return (
@@ -26,16 +42,20 @@ function Quiz(props) {
 
             <div id="quizAnswers">
 
-                <div className={`answer${isAnswerSelected(quiz.answers[0].answer_id) ? ' selected' : ''}`}
-                onClick={() => selectAnswer(quiz.answers[0].answer_id)}>
-                {quiz.answers[0].text}
+                <div
+                  className={answerClassNameOne(quiz.answers[0].answer_id)}
+                  onClick={() => handleAnswerClick(quiz.answers[0].answer_id)}
+                >
+                  {quiz.answers[0].text}
                 <button>
                   {selectedAnswer === quiz.answers[0].answer_id ? 'SELECTED' : 'Select'}
                 </button>
               </div>
 
-              <div className={`answer${selectedAnswer === quiz.answers[1].answer_id ? ' selected' : ''}`}
-                onClick={() => selectAnswer(quiz.answers[1].answer_id)}>
+              <div
+                className={answerClassNameTwo(quiz.answers[1].answer_id)}
+                onClick={() => handleAnswerClick(quiz.answers[1].answer_id)}
+              >
                 {quiz.answers[1].text}
                 <button>
                   {selectedAnswer === quiz.answers[1].answer_id ? 'SELECTED' : 'Select'}
