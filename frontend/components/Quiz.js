@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { postAnswer, fetchQuiz, selectAnswer } from '../state/action-creators'
+import { postAnswer, fetchQuiz, selectAnswer, setMessage } from '../state/action-creators'
 
 function Quiz(props) {
-  const { quiz, selectedAnswer, postAnswer, fetchQuiz, selectAnswer } = props;
+  const { quiz, selectedAnswer, postAnswer, fetchQuiz, selectAnswer, setMessage } = props;
 
   useEffect(() => {
     // console.log('Quiz', quiz)
