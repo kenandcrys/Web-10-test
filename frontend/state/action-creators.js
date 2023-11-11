@@ -19,15 +19,18 @@ export function moveCounterClockwise() {
 export function selectAnswer(answer) {
   return (dispatch) => {
 
-    dispatch({
-      type: SET_SELECTED_ANSWER,
-      payload: [answer], // Wrap the answer in an array
-    });
+    // dispatch({
+    //   type: SET_SELECTED_ANSWER,
+    //   payload: [answer], // Wrap the answer in an array
+    // });
 
-    dispatch({
-      type: SET_INFO_MESSAGE,
-      payload: answer.length > 0 ? 'Submit answer' : 'Please select an answer',
-    });
+    // dispatch({
+    //   type: SET_INFO_MESSAGE,
+    //   payload: answer.length > 0 ? 'Submit answer' : 'Please select an answer',
+    // });
+
+    dispatch({ type: SET_SELECTED_ANSWER, payload: answer })
+    
     // const state = getState()
     // const selectedAnswers = state.selectedAnswer.slice();
 

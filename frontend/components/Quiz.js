@@ -14,6 +14,10 @@ function Quiz(props) {
     }
   }, [ quiz, fetchQuiz ])
 
+  const isAnswerSelected = answer_id => {
+    selectedAnswer === answer_id;
+  }
+
   return (
     <div id="wrapper">
       { quiz ? (
@@ -22,7 +26,7 @@ function Quiz(props) {
 
             <div id="quizAnswers">
 
-                <div className={`answer ${selectedAnswer === quiz.answers[0].answer_id ? 'selected' : ''}`}
+                <div className={`answer${isAnswerSelected(quiz.answers[0].answer_id) ? ' selected' : ''}`}
                 onClick={() => selectAnswer(quiz.answers[0].answer_id)}>
                 {quiz.answers[0].text}
                 <button>
@@ -30,7 +34,7 @@ function Quiz(props) {
                 </button>
               </div>
 
-              <div className={`answer ${selectedAnswer === quiz.answers[1].answer_id ? 'selected' : ''}`}
+              <div className={`answer${selectedAnswer === quiz.answers[1].answer_id ? ' selected' : ''}`}
                 onClick={() => selectAnswer(quiz.answers[1].answer_id)}>
                 {quiz.answers[1].text}
                 <button>
